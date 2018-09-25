@@ -16,6 +16,15 @@ public class Demo {
 		return a++;
 	}
 
+	public int unSynchronizedA() {
+		int i = 0;
+		i = i * 10000;
+		i = i + 3000;
+		int value = 1;
+		int t = value / i;
+		return a++;
+	}
+
 	public synchronized void setA(int a) {
 		try {
 			Thread.sleep(2);
@@ -28,6 +37,27 @@ public class Demo {
 	public static void main(String[] args) {
 
 		Demo demo = new Demo();
+
+		/*
+		author:cyd
+		374
+		404
+		372
+		371
+		371    volatile不能保证原子操作。
+		365
+		369
+		367
+		366
+		 */
+		for (int i = 0; i < 1000; i++) {
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					System.out.println(demo.unSynchronizedA());
+				}
+			}).start();
+		}
 
 		demo.a = 10;
 

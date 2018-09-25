@@ -9,7 +9,7 @@ public class MyLock2 implements Lock {
 
 	private Helper helper = new Helper();
 
-	private class Helper extends AbstractQueuedSynchronizer {
+	private class Helper extends CopyAbstractQueuedSynchronizer {
 
 		@Override
 		protected boolean tryAcquire(int arg) {
